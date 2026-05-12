@@ -43,18 +43,17 @@
                         <?php
                             for($k=1;$k<=12;$k++){
                                 $class = (isset($_GET['k']) && $_GET['k'] == $k) ? 'active' : '';
-                                echo "<a href='?k=$k.html' class='nav-link'>Księga $k</a>";
+                                echo "<a href='?k=$k' class='nav-link $class'>Księga $k</a>";
                             }
                         ?>
                     </li>
                 </ul>
             </aside>
-            
             <main class="col-md-9">
                 <?php
                 if (isset($_GET['k'])){
                     $k = $_GET['k'];
-                    include_once "k$k";
+                    include_once "k{$k}.html";
                 } else {
                     echo '                
                     <div class="container">
@@ -87,7 +86,7 @@
                     }
 
                     foreach ($comments as $comment) {
-                        if ($comment["Status"] == 'approved'){
+                        if ($comment["Status"] == 'zatwierdzony'){
                         echo '
                             <div class="card">
                                 <div class="card-header text-bg-danger">
@@ -124,7 +123,7 @@
                                         <textarea name="comment" class="form-control" id="comment" rows="3"></textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <button type=""submit class="btn btn-danger">Prześlij</button>
+                                        <button type="submit" class="btn btn-danger">Prześlij</button>
                                     </div>
                                 </form>';
                        
@@ -136,7 +135,6 @@
                         </div>
                     </div>';
                 }
-                
                 ?>
                 
             </main>
@@ -146,8 +144,30 @@
         Autor: Kacper Szczypta
     </footer>
 
-    
-      
+    <!-- <script>
+        function loadContent(page) {
+            const main = document.getElementById('main-content');
+            if (page === 'home') {
+                main.innerHTML = `
+      <div id="home">
+        <img src="Kostrzewski-Franciszek-Polowanie-1886-Pan-Tadeusz-ciekawostki.jpg" 
+             class="img-fluid" alt="Pan Tadeusz">
+      </div>`;
+                return;
+            }
+
+            fetch(page)
+                .then(response => response.text())
+                .then(data => {
+                    main.innerHTML = data;
+                })
+                .catch(err => {
+                    main.innerHTML = '<p>Błąd wczytywania treści.</p>';
+                    console.error(err);
+                });
+        }
+    </script> -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
